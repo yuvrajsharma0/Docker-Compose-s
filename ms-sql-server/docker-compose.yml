@@ -1,0 +1,25 @@
+version: "3.1"
+
+services:
+  mssql:
+    container_name: mssql-server
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=SQLserver#123 # Default user will 'sa'
+      # - MSSQL_PID=Express #Default using Develop edition
+    volumes:
+      - /home/yuvraj/Documents/mssql-server-data/data:/var/opt/mssql/data
+      - /home/yuvraj/Documents/mssql-server-data/log:/var/opt/mssql/log
+      - /home/yuvraj/Documents/mssql-server-data/secrets:/var/opt/mssql/secrets
+
+# Comand for running -> docker compose up -d
+# Command for stopping -> docker compose down
+# Command for running SQLCMD inside container -> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'SQLserver#123'
+
+# For file permission errror in volume mounting
+# sudo chmod 777 -R /home/yuvraj/Documents/mssql-server-data
+
